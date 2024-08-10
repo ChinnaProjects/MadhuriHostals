@@ -20,7 +20,7 @@ exports.registration = async (req, res) => {
 
     const emailExists = await checkEmailExists(admin_email_id);
     if (emailExists) {
-      return res.status(409).send("Email id already exists");
+      return res.status(409).send("Email id  exists");
     }
 
     const insertQuery =
