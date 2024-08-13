@@ -18,6 +18,7 @@ exports.memberRegistration = async (req, res) => {
       company_address,
       permanent_address,
       room_number,
+      mobile_number,
     } = req.body;
     //validations
     if (!name) {
@@ -62,13 +63,15 @@ exports.memberRegistration = async (req, res) => {
     if (!room_number) {
       return res.status(400).send("Please allocate a room");
     }
-
+    if (!mobile_number) {
+      return res.status(400).send("Please provide mobile number");
+    }
     const user = await checkMemberEmailExists(email);
     if (user) {
       return res.status(409).send("Member Email Address is Exists");
     }
     const query =
-      "insert into MemberRegistration (name,email_address,aadhar_card_number,sharing,date_of_joining,guest_permanent,veg_non_veg,date_of_leaving,fees,company_name,vehicle_type,company_address,permanent_address,room_number)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      "insert into MemberRegistration (name,email_address,aadhar_card_number,sharing,date_of_joining,guest_permanent,veg_non_veg,date_of_leaving,fees,company_name,vehicle_type,company_address,permanent_address,room_number,mobile_number)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     return res.status(200).send("Member Registration is Successful");
   } catch (error) {
     return res.status(500).send("Internal Server Error");
